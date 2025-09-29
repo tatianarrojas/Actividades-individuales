@@ -21,5 +21,12 @@ select * from empleados where salario>4000;
 select * from empleados where area = "Ventas";
 select * from empleados where edad between 30 and 40;
 select * from empleados where fecha_ingreso> "2020-12-31";
+select count(area) as 'cantidadEmpleados'
+from empleados
+group by area;
+select avg(salario) from empleados;
+select * from empleados where nombre like 'A%' or nombre like 'C%';
+select * from empleados where area not like '%IT%';
+select max(salario) from empleados;
 
 
