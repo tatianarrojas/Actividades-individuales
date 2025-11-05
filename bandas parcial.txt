@@ -1,0 +1,51 @@
+db.bands.updateOne({ name: "Plan B" },{$set: {albums: [{ title: "Los Nenes del Blin Blin", dateCreated: new Date(2005, 06, 25),rating:5, sales:145000},{ title: "House of Pleasure", dateCreated: new Date(2010, 08, 21), rating:5, sales:34000 },{ title: "Love and Sex", dateCreated: new Date(2014, 09, 28),rating:5, sales:45000 }]}})
+
+db.bands.updateOne({ name: "BTS" },{$set: {albums: [{ title: "Wings", dateCreated: new Date(2015, 06, 25),rating:5, sales:1450000},{ title: "Dark n wild", dateCreated: new Date(2013, 08, 21), rating:5, sales:234000 },{ title: "Love yourself", dateCreated: new Date(2016, 09, 28),rating:5, sales:4500000 }]}})
+
+db.bands.updateOne({ name: "Blackpink" },{$set: {albums: [{ title: "Born this way", dateCreated: new Date(2020, 06, 25),rating:5, sales:148000},{ title: "Cube", dateCreated: new Date(2018, 08, 21), rating:5, sales:23400 }]}})
+
+db.bands.updateOne({ name: "Plan B" },{ $set: { members: ["Chencho", "Maldy"]}})
+
+db.bands.updateOne({ name: "BTS" },{ $set: { members: ["Suga", "V","Jungkook","RM","Jin","Jimin","Jhope"]}})
+
+db.bands.updateOne({ name: "Blackpink" },{ $set: { members: ["jennie", "Lisa","Jisoo","rose"]}})
+
+//Retos
+
+
+db.bandas.aggregate  ([
+  {$unwind: "$albums"},
+  {$group: 
+  {
+    _id: "$name",
+    albumCount: {$sum:1},
+    totalVentas: {$sum: "$albums.sales"}
+  }
+  },
+  {$sort:{albumCount: -1}}
+])
+
+db.bandas.aggregate  ([
+  {$unwind: "$albums"},
+  {$group: 
+  {
+    _id: "$name",
+    albumCount: {$sum:1},
+    totalVentas: {$sum: "$albums.sales"}
+  }
+  },
+  {$sort:{albumCount: -1}}, 
+{$limit: 2}
+])
+
+
+db.bandas.aggregate  ([
+  {$unwind: "$albums"},
+  {$group: 
+  {
+    _id: "$country",
+    ratingPromedio: {$avg: "$album.rating" },
+    cantidadAlbum: {$sum: 1}
+  }
+  }
+])
